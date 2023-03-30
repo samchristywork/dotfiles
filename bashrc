@@ -83,7 +83,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
-complete -F _longopt firefox
+# complete -F _longopt firefox
 
 # https://stackoverflow.com/questions/4200800/in-bash-how-do-i-bind-a-function-key-to-a-command
 #bind '"\e[24~":"foobar"'
@@ -146,3 +146,14 @@ alias nv="nvim "
 alias vi="nvim "
 alias ca="terminal_calendar"
 alias co="countdown '5 minutes'"
+
+. "$HOME/.cargo/env"
+
+# find ./messages -mmin +720 | grep messages > /dev/null && echo "Do another" >> messages
+# cat ~/messages
+
+alias reference="ctags -x --recurse | awk '{print \$2\"\\t\"\$4\"\\t\"\$1}' | column -t "
+
+alias chop="cut -c -\$COLUMNS "
+
+alias log="git log --stat --summary "

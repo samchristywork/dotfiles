@@ -3,7 +3,8 @@ set nocompatible
 filetype plugin on
 set background=dark
 set mouse=
-set tags=./tags,tags,/home/sam/.commontags/boids
+set tags=./tags,tags,/home/sam/.commontags/tags
+set title
 
 " Return to last edit position when opening files
 autocmd BufReadPost *
@@ -80,6 +81,8 @@ augroup END
 
 " ## Misc
 
+:cnoreabbrev h vert h
+
 " Recent files
 nmap R :bro ol<cr>
 
@@ -141,6 +144,7 @@ Plugin 'AckslD/messages.nvim' " Shows messages in floating buffer
 Plugin 'SirVer/ultisnips' " Snippet expander
 Plugin 'VundleVim/Vundle.vim' " Package manager
 Plugin 'airblade/vim-gitgutter.git' " Display status of lines in the leftmost line
+Plugin 'ap/vim-css-color' " Preview CSS colors
 Plugin 'bling/vim-bufferline' " Lists the open buffers in the status line
 Plugin 'honza/vim-snippets' " Provides useful data for snippets
 Plugin 'jbyuki/venn.nvim' " Draw ASCII diagrams
@@ -151,11 +155,15 @@ Plugin 'nvim-treesitter/nvim-treesitter' " Syntax highlighting
 Plugin 'petertriho/nvim-scrollbar' " Adds a scrollbar on the right side
 Plugin 'preservim/nerdtree' " File browser
 Plugin 'preservim/tagbar' " Browse tags ordered by scope
+Plugin 'raghur/vim-ghost' " Type in the browser
 Plugin 'rcarriga/nvim-notify' " Notification manager
 Plugin 'rust-lang/rust.vim' " Error checking and formatting for Rust (error highlighting)
 Plugin 'sidebar-nvim/sidebar.nvim' " Sidebar
+Plugin 'tc50cal/vim-terminal' " :TerminalSplit
+Plugin 'terryma/vim-expand-region' " + to expand visual selection and - to shrink it
 Plugin 'tpope/vim-fugitive.git' " Git commands
 Plugin 'valloric/YouCompleteMe' " Autocomplete and preview window and red arrows indicating syntax errors
+Plugin 'vimwiki/vimwiki' " \ww to open wiki
 " Plugin 'gorbit99/codewindow.nvim'
 " Plugin 'echasnovski/mini.nvim'
 
@@ -169,10 +177,13 @@ filetype plugin indent on    " required
 " Plugin-specific
 
 " If no buffer specified, open NERDTree automatically
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" autocmd StdinReadPre * let s:std_in=1
+" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
-nmap <F8> :TagbarToggle<CR>
+nmap <F1> :SidebarNvimToggle<CR>
+nmap <F2> :TagbarToggle<CR>
+nmap <F3> :NERDTreeToggle<CR>
+let g:tagbar_width=40
 
 " windows default encoding is not supported
 set encoding=utf-8
@@ -191,10 +202,12 @@ let g:UltiSnipsListSnippets="<c-l>"
 let g:ycm_max_num_candidates = 0
 
 " nmap O :Telescope find_files<cr>
-nnoremap ff :Telescope find_files<cr>
-nnoremap fg :Telescope live_grep<cr>
 nnoremap fG :Telescope grep_string search=<c-r><c-w><cr>
 nnoremap fb :Telescope buffers<cr>
+nnoremap fb :Telescope builtin<cr>
+nnoremap fc :Telescope colorscheme<cr>
+nnoremap ff :Telescope find_files<cr>
+nnoremap fg :Telescope live_grep<cr>
 nnoremap fh :Telescope help_tags<cr>
 
 lua require('overlength').setup()
@@ -298,3 +311,7 @@ set statusline+=%(Selection=%{Bar()}\ Words=%{wordcount().words}\ Bytes=%{Foo()}
 " endfu
 "
 " nmap <F3> :call Somefunc()<cr>
+
+" ctags --list-fields
+" call system('test -d .git && ctags --recurse --extras=f --fields=aCeEfFikKlmnNpPrRsStxzZ --tag-relative=never -f ~/.commontags/tags src/')
+call system('test -d .git && ctags --recurse --extras=f --fields=aCeEfFikKlmnNpPrRsStxzZ --tag-relative=never -f ~/.commontags/tags src/')
