@@ -1,0 +1,10 @@
+[font.normal]
+family = "LiterationMono Nerd Font"
+style = "Regular"
+
+[shell]
+args = ["new-session", "/usr/bin/fish"]
+program = "/usr/bin/tmux"
+
+[window]
+#opacity = 0.98
