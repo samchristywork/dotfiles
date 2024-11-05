@@ -34,7 +34,7 @@ if status is-interactive
   fish_add_path /usr/sbin/
   fish_add_path /usr/local/go/bin
 
-  export EDITOR=nvim
+  export EDITOR=vim
   export PATH="$HOME/.cargo/bin:$PATH"
 
   # Man colors
@@ -50,12 +50,12 @@ if status is-interactive
 
   # Bindings
   bind \ce edit_command_buffer
-  bind \cs "echo;git status .; commandline -f repaint"
+  bind \cx "echo;git diff --stat; git status .; commandline -f repaint"
 
   # Aliases
   alias clippy 'cargo clippy -- -W clippy::pedantic -W clippy::nursery -W clippy::unwrap_used'
   alias clippy-fix 'cargo clippy --fix -- -W clippy::pedantic -W clippy::nursery -W clippy::unwrap_used'
   alias ls '/bin/ls --color=auto'
   alias r ranger
-  alias v nvim
+  alias v vim
 end
